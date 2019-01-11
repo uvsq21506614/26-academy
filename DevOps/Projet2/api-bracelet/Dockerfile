@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7
 RUN mkdir /usr/src/app
 COPY __main__.py /usr/src/app
 COPY _version.py /usr/src/app
