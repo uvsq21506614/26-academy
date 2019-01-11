@@ -1,8 +1,6 @@
 FROM python:3.7
-RUN mkdir /var/www
-COPY __main__.py /var/www/__main__.py
-COPY _version.py /var/www/_version.py
-COPY README.md /var/www/README.md
-COPY requirements.txt /var/www/requirements.txt
+ADD __main__.py /
+ADD _version.py /
+ADD requirements.txt /
 RUN pip install -r requirements.txt
-CMD ["python", "/var/www/__main__.py"]
+CMD ["python", "./__main__.py"]
