@@ -1,6 +1,6 @@
-FROM python:3.7
-ADD __main__.py /
-ADD _version.py /
-ADD requirements.txt /
-RUN pip install -r requirements.txt
-CMD [ "python", "./__main__.py" ]
+FROM python:3
+WORKDIR /usr/src/app
+COPY __main__.py /usr/src/app
+COPY _version.py /usr/src/app/usr/src/app
+RUN pip install --no-cache-dir -r requirements.txt
+CMD [ "python", "/usr/src/app/__main__.py" ]
