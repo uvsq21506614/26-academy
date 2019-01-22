@@ -5,6 +5,7 @@ services:
 
 stages:
   - build
+  - test
   - deploy
 
    variables:
@@ -21,8 +22,16 @@ stages:
  before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   
-  # automatiser le build, et le push sur un repository de vos images docker
-  stage: build
-   script:
-     - docker build --pull -t $CONTAINER_TEST_IMAGE .
-     - docker push $CONTAINER_TEST_IMAGE
+ # automatiser le build, et le push sur un repository de vos images docker
+ stage: build
+  script:
+    - docker build --pull -t $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
+    
+# Test des Images
+test1:
+  stage: test
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE /script/to/run/tests
+
