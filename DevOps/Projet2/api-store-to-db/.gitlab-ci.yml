@@ -28,8 +28,7 @@ stages:
  stage: build
   script:
     - docker build --file="Dockerfile" --tag="$CONTAINER_TEST_IMAGE" .
-    - docker run --name gitlab-mysql -e MYSQL_DATABASE=db-wordpress -e MYSQL_USER=user-wordpress -e MYSQL_PASSWORD=myPassword01 -e MYSQL_ROOT_PASSWORD=myRootPassword01 -d mysql:5.7
-    - docker run --link gitlab-mysql:test-mysql $CONTAINER_TEST_IMAGE tests
+    - docker run -d --name some-mongo -e MONGO_INITDB_ROOT_USERNAME=user-api-store-bracelet -e MONGO_INITDB_ROOT_PASSWORD=myPassword01 mongo:latest
     - docker push $CONTAINER_TEST_IMAGE
     
 # Test des Images
