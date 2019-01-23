@@ -25,19 +25,20 @@ stages:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   
  # automatiser le build, et le push sur un repository de vos images docker
- stage: build
+ job:buid
+  stage: build
   script:
     - docker build --file="Dockerfile" --tag="$CONTAINER_TEST_IMAGE" .
     - docker push $CONTAINER_TEST_IMAGE
     
 # Test des Images
-test1:
+job:test1:
   stage: test
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker run $CONTAINER_TEST_IMAGE /script/to/run/tests
 
-deploy:
+job:deploy:
   stage: deploy
   image: cdrx/rancher-gitlab-deploy
   only:
