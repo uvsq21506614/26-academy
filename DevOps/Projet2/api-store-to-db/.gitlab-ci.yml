@@ -28,7 +28,7 @@
   stage: build
   script:
     - docker build --file="Dockerfile" --tag="$CONTAINER_TEST_IMAGE" .
-	- docker run -d --name some-mongo -e MONGO_INITDB_ROOT_USERNAME=user-api-store-bracelet -e MONGO_INITDB_ROOT_PASSWORD=myPassword01 mongo:latest
+    - docker run -d --name some-mongo -e MONGO_INITDB_ROOT_USERNAME=user-api-store-bracelet -e MONGO_INITDB_ROOT_PASSWORD=myPassword01 mongo:latest
     - docker push $CONTAINER_TEST_IMAGE
     
 # Test des Images
