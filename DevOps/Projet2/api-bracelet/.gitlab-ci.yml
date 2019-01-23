@@ -1,31 +1,30 @@
-
-image: docker:stable
-services:
+ image: docker:stable
+ services:
   - docker:dind
 
-stages:
+ stages:
   - build
   - test
   - deploy
 
-   variables:
-     DOCKER_HOST: tcp://docker:2375
-     DOCKER_DRIVER: overlay2
-     CI_JOB_TOKEN: w1MuRaC4T6i4pdAsS8Gr
-     CI_BUILD_TOKEN: w1MuRaC4T6i4pdAsS8Gr
-     CI_REGISTRY_IMAGE: registry.gitlab.com/uvsq21506614/26-academy
-     CI_COMMIT_REF_SLUG: latest
-     CI_BUILD_REF_NAME: latest
-     CI_REGISTRY: registry.gitlab.com
-     CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-     CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+ variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    CI_JOB_TOKEN: w1MuRaC4T6i4pdAsS8Gr
+    CI_BUILD_TOKEN: w1MuRaC4T6i4pdAsS8Gr
+    CI_REGISTRY_IMAGE: registry.gitlab.com/uvsq21506614/26-academy
+    CI_COMMIT_REF_SLUG: latest
+    CI_BUILD_REF_NAME: latest
+    CI_REGISTRY: registry.gitlab.com
+    CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
      
  #Before script for authentification
  before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   
  # automatiser le build, et le push sur un repository de vos images docker
- job:buid
+ job:build:
   stage: build
   script:
     - docker build --file="Dockerfile" --tag="$CONTAINER_TEST_IMAGE" .
